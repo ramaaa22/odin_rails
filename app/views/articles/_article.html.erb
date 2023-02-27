@@ -1,0 +1,25 @@
+<div id="<%= dom_id article %>">
+
+
+  <h1>HAGO RENDER ARTICLE</h1>
+
+  <p>
+    <strong>Title:</strong>
+    <%= article.title %>
+  </p>
+
+  <p>
+    <strong>Body:</strong>
+    <%= article.body %>
+  </p>
+
+  <% if article.comments.length!= 0 %>
+    <h1>Comments</h1>
+    <%= render article.comments %>
+  
+  <% else %>
+    <p> There aren't comments to show yet </p>
+  <% end %>
+ 
+
+</div>
