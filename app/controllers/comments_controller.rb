@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  http_basic_authenticate_with name: "dhh", password: "secret", only: :destroy
   before_action :set_comment, only: %i[ show edit update destroy ]
 
   # GET /comments or /comments.json
@@ -24,9 +25,6 @@ class CommentsController < ApplicationController
     @article = Article.find(params[:article_id])
     @comments = @article.comments.create(comment_params)
     redirect_to article_path(@article)
-
-    @comment = Comment.new(comment_params)
-
   end
 
   # PATCH/PUT /comments/1 or /comments/1.json
@@ -44,12 +42,10 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.find(params[:id])
     @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to article_path(@article), status: :see_other
   end
 
   private
@@ -60,6 +56,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:commenter, :body)
+      params.require(:comment).permit(:commenter, :body, :status)
     end
 end

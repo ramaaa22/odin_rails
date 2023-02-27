@@ -1,8 +1,4 @@
 <div id="<%= dom_id article %>">
-
-
-  <h1>HAGO RENDER ARTICLE</h1>
-
   <p>
     <strong>Title:</strong>
     <%= article.title %>
@@ -11,6 +7,11 @@
   <p>
     <strong>Body:</strong>
     <%= article.body %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= article.status %>
   </p>
 
   <% if article.comments.length!= 0 %>

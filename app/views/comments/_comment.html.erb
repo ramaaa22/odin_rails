@@ -1,14 +1,21 @@
-<div id="<%= dom_id comment %>">
-  <div style="border:1px solid black">
-    <p>
-      <strong>Commenter:</strong>
-      <%= comment.commenter %>
-    </p>
+<% unless comment.archived?%>
+  <div id="<%= dom_id comment %>">
+    <div style="border:1px solid black">
+      <p>
+        <strong>Commenter:</strong>
+        <%= comment.commenter %>
+      </p>
 
-    <p>
-      <strong>Body:</strong>
-      <%= comment.body %>
-    </p>
+      <p>
+        <strong>Body:</strong>
+        <%= comment.body %>
+      </p>
+
+      <%= link_to "Destroy comment", [comment.article, comment], data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+      }%>
+
+    </div>
   </div>
-
-</div>
+<% end %>
